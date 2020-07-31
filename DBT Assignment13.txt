@@ -1,0 +1,65 @@
+                                                        Assignment – 13
+                                                     Using the UNION clause.
+
+Que1) Create a union of two queries that shows the names, cities, and ratings of all
+customers. Those with rating of 200 or greater will also have the words “High
+Rating”, while the others will have the words “Low Rating”.
+
+Ans. Query is:
+    select Cname,City,'High Rating' rating
+    from customers where rating>200
+    union
+    select Cname,City,'Low Rating' rating
+    from customers where rating<=200;
++----------+----------+-------------+
+| Cname    | City     | rating      |
++----------+----------+-------------+
+| Grass    | Berlin   | High Rating |
+| Cisneros | San Jose | High Rating |
+| Hoffman  | London   | Low Rating  |
+| Giovanni | Rome     | Low Rating  |
+| Liu      | San Jose | Low Rating  |
+| Clemens  | London   | Low Rating  |
+| Pereira  | Rome     | Low Rating  |
++----------+----------+-------------+
+
+------------------------------------------------------------------------------------------------------------------------------
+QUe2) Write a command that produces the name and number of each salesperson and
+   each customer with more than one current order. Put the results in alphabetical
+   order.
+
+Ans. Query is:
+    select Snum,Sname,Cname from salespeople 
+    JOIN customers using(Snum)
+    where Snum IN (select Snum from customers 
+    group by Snum HAVING count(Snum)>1) order by Sname,Cname;
++------+--------+---------+
+| Snum | Sname  | Cname   |
++------+--------+---------+
+| 1001 | Peel   | Clemens |
+| 1001 | Peel   | Hoffman |
+| 1002 | Serres | Grass   |
+| 1002 | Serres | Liu     |
+| 1002 | Serres | Pereira |
++------+--------+---------+
+
+---------------------------------------------------------------------------------------------------------------------------------
+Que3) Form a union of three queries. Have the first select the snums of all salespeople in
+   San Jose; the second, the cnums of all customers in San Jose; and the third the
+   onums of all orders on October 3. Retain duplicates between the last two queries
+   but eliminate any redundancies between either of them and the first.
+  (Note: in the sample tables as given, there would be no such redundancy. This is
+  besides the point.)
+
+Ans. Query is:
+     select Snum FROM salespeople where City = 'San Jose'
+     UNION
+     select distinct Snum from orders where Snum IN (select Snum from orders where odate LIKE '1990-10-03');
++------+
+| Snum |
++------+
+| 1002 |
+| 1007 |
+| 1001 |
+| 1004 |
++------+

@@ -1,0 +1,88 @@
+                                                     Assignment – 9
+                                             Querying Multiple Tables at Once.
+
+Que1) Write a query that lists each order number followed by the name of the customer
+      who made the order.
+Ans. Query is:
+      select Onum,Cname from customers,orders 
+       where orders.Cnum =customers.Cnum;
++------+----------+
+| Onum | Cname    |
++------+----------+
+| 3001 | Cisneros |
+| 3003 | Hoffman  |
+| 3002 | Pereira  |
+| 3005 | Liu      |
+| 3006 | Cisneros |
+| 3009 | Giovanni |
+| 3007 | Grass    |
+| 3008 | Clemens  |
+| 3010 | Grass    |
+| 3011 | Clemens  |
++------+----------+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+Que2) Write a query that gives the names of both the salesperson and the customer for
+each order along with the order number.
+
+Ans. Query is:
+     select Sname,Cname,Onum from salespeople,customers,orders 
+      where orders.Cnum = customers.Cnum 
+	AND orders.Snum = salespeople.Snum;
++--------+----------+------+
+| Sname  | Cname    | Onum |
++--------+----------+------+
+| Peel   | Hoffman  | 3003 |
+| Serres | Liu      | 3005 |
+| Serres | Grass    | 3007 |
+| Serres | Grass    | 3010 |
+| Peel   | Clemens  | 3008 |
+| Peel   | Clemens  | 3011 |
+| Rifkin | Cisneros | 3001 |
+| Rifkin | Cisneros | 3006 |
+| Motika | Pereira  | 3002 |
++--------+----------+------+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Que3) Write a query that produces all customers serviced by salespeople with a
+      commission above 12%. Output the customer’s name, the salesperson’s name,
+      and the salesperson’s rate of commission.
+
+Ans. Query is:
+       select Cname,Sname,Comm*100 from salespeople,customers 
+	where customers.Snum = salespeople.Snum AND salespeople.Comm > .12;
++----------+--------+----------+
+| Cname    | Sname  | Comm*100 |
++----------+--------+----------+
+| Liu      | Serres |    13.00 |
+| Grass    | Serres |    13.00 |
+| Cisneros | Rifkin |    15.00 |
+| Pereira  | Serres |    13.00 |
++----------+--------+----------+
+
+------------------------------------------------------------------------------------------------------------------------------
+	
+Que4) Write a query that calculates the amount of the salesperson’s commission on each
+      order by a customer with a rating above 100.
+
+Ans. Query is:
+      select Amt,Comm from salespeople,customers,orders 
+      where orders.Snum = customers.Snum AND orders.Snum = 
+       salespeople.Snum AND customers.Rating > 100;
+---------+------+
+| Amt     | Comm |
++---------+------+
+|   18.69 | 0.15 |
+| 5160.45 | 0.13 |
+| 5160.45 | 0.13 |
+| 1098.16 | 0.15 |
+|   75.75 | 0.13 |
+|   75.75 | 0.13 |
+| 1309.95 | 0.13 |
+| 1309.95 | 0.13 |
++---------+------+
+
+------------------------------------------------------------------------------------------------------------------------------
+

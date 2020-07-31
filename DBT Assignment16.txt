@@ -1,0 +1,36 @@
+                                                        Assignment – 16
+                                                  Creating Tables and Indexes.
+
+Que1) Write a command that will enable a user to pull orders grouped by date out of the
+      Orders table quickly.
+
+Ans. Query is:
+      create index i_orders ON orders(Odate);
+	 show indexes 
+          from orders;
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Que2) If the Orders table has already been created, how can you force the onum field to
+      be unique (assume all current values are unique)?
+
+Ans. Query is:
+      ALTER table orders add primary key(Onum);
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Que3) Create an index that would permit each salesperson to retrieve his or her orders
+      grouped by date quickly.
+
+Ans. Query is:
+       create index i_order_date ON orders(Odate);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+Que4) Let us assume that each salesperson is to have only one customer of a given
+rating, and that this is currently the case. Enter a command that enforces it.
+
+Ans. Query is:
+      ALTER table customers ADD primary key(Rating);
+
+-----------------------------------------------------------------------------------------------------------------------------

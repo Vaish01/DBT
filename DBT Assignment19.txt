@@ -1,0 +1,46 @@
+                                                         Assignment – 19
+                                                            Views.
+
+Que1) Create a view that shows all of the customers who have the highest ratings.
+
+Ans. Query is:
+      create view Highest_Ratings
+      as 
+      select * from customers
+      where Rating in (select max(Rating) from customers);
+
+------------------------------------------------------------------------------------------------------------------------------
+    
+Que2) Create a view that shows the number of salespeople in each city.
+
+Ans. Query is:
+    create view salespeople_INcity
+    as
+    select City, count(City) from salespeople
+    group by City;
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Que3) Create a view that shows the average and total orders for each salesperson after
+   his or her name. Assume all names are unique.
+
+Ans. Query is:
+      create view totalorders
+       as
+       select Sname, avg(Onum) AVERAGE, count(Onum) "TOTAL_ORDERS" from salespeople,orders
+        where salespeople.Snum = orders.Snum
+          group by Sname;
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+QUe4) Create a view that shows each salesperson with multiple customers.
+
+Ans. Query is:
+
+     create view multcust
+      as 
+      select salespeople.Snum,Cnum from salespeople,customers
+       where salespeople.Snum = customers.Snum
+        group by Sname;
+
+---------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,65 @@
+                                                            Assignment-21
+                                                           Grant And Revoke
+
+Que1) Give Amit the right to change the ratings of the customers.
+
+Ans. Query is:
+      GRANT UPDATE ON customers to Amit ;
+
+     ->Grant succeeded
+ 
+      REVOKE UPDATE ON customers from Amit ;
+
+     ->Revoke succeeded.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Que2) Give Manoj the right to give other users the right to query the Orders table.
+
+Ans. Query is:
+      GRANT SELECT ON orders to sakshi WITH GRANT OPTION;
+
+      ->Grant succeeded.
+ 
+      GRANT update ON sakshi.orders to prachi;
+
+      ->Grant succeeded.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Q.3) Take the INSERT privilege on Salespeople away from Ajita.
+
+Ans. Query is:
+      REVOKE INSERT ON salespeople from Ajita;
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+QUe4) Grant Abhijeet the right to insert or 
+     update the Customers table while keeping her possible 
+     rating values in the range of 100 to 500.
+
+Ans. Query is:
+      create or replace view range 100 AS select * from customers 
+      where rating BETWEEN 100 AND 500 WITH CHECK OPTION;
+
+      ->View created.
+ 
+      GRANT UPDATE ON range100 to Ajita;
+
+      insert into range100
+      values('001','Rakesh','Prachi','700','7999');
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Que5) Allow Vikram to query the Customers table, but restrict his access to those customers whose rating is the lowest.
+     
+Ans. Query is:
+      create view not_low_rating AS 
+        ( select * from customers where rating  NOT IN 
+           (select min(rating) from customers));
+
+     ->View created.
+ 
+     GRANT SELECT ON not_low_rating to Vikaram;
+
+---------------------------------------------------------------------------------------------------------------------------------

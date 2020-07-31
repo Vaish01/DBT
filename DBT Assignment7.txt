@@ -1,0 +1,101 @@
+                                                      Assignment –7
+                                           Summarizing Data with Aggregate Functions.
+Que1) Write a query that counts all orders for October 3.
+
+Ans. Query is:
+     select count(Odate)from orders
+     where Odate='1990-10-03';
++--------------+
+| count(Odate) |
++--------------+
+|            5 |
++--------------+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Que2) Write a query that counts the number of different non-NULL city values in the
+      Customers table.
+
+Ans. Query is:
+     select count(Cnum)from customers;
++-------------+
+| count(Cnum) |
++-------------+
+|           7 |
++-------------+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Que3) Write a query that selects each customer’s smallest order.
+
+Ans. Query is:
+     select min(Amt)from orders
+     group by CNum;
++----------+
+| min(Amt) |
++----------+
+|   767.19 |
+|  1713.23 |
+|  5160.45 |
+|    75.75 |
+|  4723.00 |
+|  1900.10 |
+|    18.69 |
++----------+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Que4) Write a query that selects the first customer, in alphabetical order, whose name
+      begins with G.
+
+Ans.select Cname from customers
+     where Cname LIKE 'G%'
+     order by Cname;
++----------+
+| Cname    |
++----------+
+| Giovanni |
+| Grass    |
++----------+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Que5) Write a query that selects the highest rating in each city.
+
+Ans.select max(Rating)from customers
+     group by City;
++-------------+
+| max(Rating) |
++-------------+
+|         300 |
+|         100 |
+|         200 |
+|         300 |
++-------------+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Que6) Write a query that counts the number of salespeople registering orders for each
+      day. (If a salesperson has more than one order on a given day, he or she should be
+      counted only once.).
+
+Ans. Query is:
+     select COUNT(Snum) from orders 
+     group by Odate
+     OR
+     select count(Odate),Odate from orders 
+     group by Odate;
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
